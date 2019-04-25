@@ -1,0 +1,15 @@
+plugins {
+    id 'java-library'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'kshc.StatusReader'
+    }
+    baseName = project.name + '-all'
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
