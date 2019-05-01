@@ -9,7 +9,7 @@ import javax.management.remote.JMXServiceURL;
 public class StatusReader {
 
   public static void main(String[] args) throws Exception {
-    JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:45455/jmxrmi");
+    JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:5555/jmxrmi");
 
     try (JMXConnector jmxc = JMXConnectorFactory.connect(url)) {
       MBeanServerConnection conn = jmxc.getMBeanServerConnection();

@@ -1,15 +1,27 @@
 plugins {
     id 'java-library'
+    id 'com.jfrog.bintray' version '1.8.4'
 }
 
-task fatJar(type: Jar) {
+version = '1.0.0'
+
+jar {
     manifest {
         attributes 'Main-Class': 'kshc.StatusReader'
     }
-    baseName = project.name + '-all'
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    with jar
 }
 
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'kafka-streams-health-check'
+        name = 'kafka-streams-health-check'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/kijanowski/kafka-streams-health-check.git'
+        version {
+            name = project.version
+        }
+    }
+}
